@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <title>Área de Denúncias - MPAP</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="lib/css/bulma.min.css">
+        <link rel="stylesheet" href="lib/css/style.css">
+        <meta content="width=device-width,initial-scale=1" name="viewport" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css" />
+        <link rel="stylesheet" href="/vendors/formvalidation/dist/css/formValidation.min.css" />
+        
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initAutocomplete&libraries=places&v=weekly&channel=2" async>
+        </script>
+    </head>
+    <body>         
+        <section class="section">            
+            <div class="container">                
+                <div class="columns is-centered">                   
+                    <div class="column is-half">
+                        <figure class="image is-128x128">
+                            <a href="http://www.mpap.mp.br/" target="_blank"><img class="title has-text-centered" src="http://www.mpap.mp.br/templates/mp-ap2.0/images/logo-mpap.png"></a>
+                          </figure>
+                        <h2 class="title has-text-centered">Área de Denúncias - MPAP</h2>    
+                        <form name="formValidation" action="enviar.html" method="POST">
+                            <!--DESCRIÇÃO-->
+                            <div class="field">
+                                <label class="label">Descrição:</label>
+                                <label class="label">Nome</label>
+                                <label class="checkbox" id="desabilitar">
+                                    <input type="checkbox" onclick="desabilitar(this.checked)"> Anônimo
+                                </label>
+                                <div class="control">
+                                    <input type="text" name="nome" class="input is-link"  id="Nome" placeholder="Digite seu nome" required oninvalid="this.setCustomValidity('Preencha este campo ou marque a opção Anônimo')" onchange="try{setCustomValidity('')}catch(e){}">
+                                </div>
+                            </div>
+    
+                            <div class="field">
+                                <label class="label">Assunto</label>
+                                <div class="control">
+                                    <div class="select is-fullwidth">
+                                        <select name="assunto" id="selecionar" required oninvalid="this.setCustomValidity('Selecione uma opção do assunto')" onchange="try{setCustomValidity('')}catch(e){}">
+                                            <option value="">Selecione</option>
+                                            <option>01 - Violênvia Contra Crianças e Adolescentes</option>
+                                            <option>02 - Violência Conta a Pessoa Idosa</option>
+                                            <option>03 - Violência Contra a Mulher</option>
+                                            <option>04 - Violência Contra Pessoa com Deficiência</option>
+                                            <option>05 - Coronavírus - Covid 19</option>
+                                            <option>06 - Corrupção/Improbidade Administrativa</option>
+                                            <option>07 - Comércio Ilegal ou Tráfico de Armas de Fogo</option>
+                                            <option>08 - Criança Desaparecida</option>
+                                            <option>09 - Crime Ambiental</option>
+                                            <option>10 - Crime Eleitoral</option>
+                                            <option>11 - Crimes de Internet</option>
+                                            <option>12 - Exotorsão Mediante Sequestro</option>
+                                            <option>13 - Furto de Cabo Telefônico/Fibra Ótica</option>
+                                            <option>14 - Furto, Roubo ou Latrocínio</option>
+                                            <option>15 - Homicídio</option>
+                                            <option>16 - Jogos de Azar</option>
+                                            <option>17 - Maus-tratos a Animais Domésticos</option>
+                                            <option>18 - Pessoa Desaparecida (Adulto)</option>
+                                            <option>19 - Porte Ilegal/Posse Ilegal de Arma de Fogo</option>
+                                            <option>20 - Procurados/Pendência Judicial</option>
+                                            <option>21 - Receptação</option>
+                                            <option>22 - Roubo/Furto à Caixas Eletrônicos</option>
+                                            <option>23 - Tráfico de Drogas</option>
+                                            <option>24 - Uso de Drogas</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <div class="field">
+                                <label class="label">Descreva o crime</label>
+                                <div class="control">
+                                    <textarea name="mensagem" class="textarea is-link" placeholder="Deixe sua mensagem" maxlength="2000" style="resize: none" rows="10"
+                                    required oninvalid="this.setCustomValidity('Descreva sua denúncia')" onchange="try{setCustomValidity('')}catch(e){}"></textarea>
+                                </div>
+                            </div><br><br>
+
+                            <!--ANEXO-->
+                            <div class="field">
+                                <label class="label">Anexo (opcional):</label>
+                                <p>Selecione abaixo um arquivo do crime/situação. Ex: imagens/fotos, vídeos, etc.</p>
+                                <div id="file-js-example" class="file is-info has-name">
+                                    <label class="file-label">
+                                      <input  class="file-input" type="file" name="resume" id="arquivo">
+                                      <span class="file-cta">
+                                        <span class="file-icon">
+                                          <i class="fas fa-upload"></i>
+                                        </span>
+                                        <span class="file-label">
+                                          Selecione um arquivo
+                                        </span>
+                                      </span>
+                                      <span class="file-name">
+                                        Nenhum arquivo carregado
+                                      </span>
+                                    </label>
+                                  </div>
+                            </div><br><br>
+
+                            <!--GEOLOCALIZAÇÃO-->
+                            <div class="field">
+                                <label class="label">Localização (opcional):</label>
+                                <p>Digite na barra de pesquisa o local do ocorrido.</p>
+                                <div class="content">
+                                    <input id="pac-input" class="controls" type="text" placeholder="Digite o endereço" />
+                                    <div id="map"></div>
+
+                                </div>
+                            </div>
+
+                            <!--ENVIAR-->
+                            <div class="field is-grouped">
+                                <div class="control">
+                                    <input type="submit" onclick="return validarForm()">
+                                    <!--<button class="button is-link is-medium" onclick="function validar()">Enviar</button>-->
+                                </div>
+                            </div>
+                        </form>    
+                    </div>
+                </div>
+            </div>
+            
+        </section>
+
+        <!--SCRIPTS-->
+        <script type="text/javascript" src="lib/js/script.js"></script>
+        <script type="text/javascript" src="lib/js/enviar.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.35.3/es6-shim.min.js"></script>
+        <script src="/vendors/formvalidation/dist/js/FormValidation.min.js"></script>
+        <script src="/vendors/formvalidation/dist/js/plugins/Bulma.min.js"></script>
+    </body>
+</html>
